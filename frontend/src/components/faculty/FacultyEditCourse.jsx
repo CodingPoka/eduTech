@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { auth, db, storage } from "../../config/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { auth, db } from "../../config/firebase";
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   FaBook,
-  FaVideo,
   FaImage,
   FaYoutube,
   FaPlus,
@@ -18,15 +17,17 @@ import {
   FaTag,
   FaCheckCircle,
   FaInfoCircle,
+  FaArrowLeft,
 } from "react-icons/fa";
 
-const FacultyAddCourse = () => {
+const FacultyEditCourse = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [userId, setUserId] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-  const [thumbnailFile, setThumbnailFile] = useState(null);
-  const [thumbnailPreview, setThumbnailPreview] = useState(null);
 
   const [courseData, setCourseData] = useState({
     title: "",
@@ -51,10 +52,43 @@ const FacultyAddCourse = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserId(user.uid);
+        fetchCourse(id);
+      } else {
+        navigate("/faculty/login");
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [id]);
+
+  const fetchCourse = async (courseId) => {
+    try {
+      setLoading(true);
+      const courseDoc = await getDoc(doc(db, "courses", courseId));
+
+      if (courseDoc.exists()) {
+        const data = courseDoc.data();
+        setCourseData({
+          title: data.title || "",
+          description: data.description || "",
+          category: data.category || "",
+          level: data.level || "Beginner",
+          duration: data.duration || "",
+          language: data.language || "English",
+          price: data.price || "Free",
+          thumbnailURL: data.thumbnailURL || "",
+          youtubePlaylist: data.youtubePlaylist || "",
+          videos: data.videos || [],
+        });
+      } else {
+        setError("Course not found");
+      }
+    } catch (err) {
+      console.error("Error fetching course:", err);
+      setError("Failed to load course");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     setCourseData({
@@ -87,19 +121,11 @@ const FacultyAddCourse = () => {
     });
   };
 
-  const handleThumbnailChange = (e) => {
-    const url = e.target.value;
-    setCourseData({
-      ...courseData,
-      thumbnailURL: url,
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!userId) {
-      setError("Please log in to add a course");
+      setError("Please log in to update the course");
       return;
     }
 
@@ -113,72 +139,60 @@ const FacultyAddCourse = () => {
       return;
     }
 
-    setLoading(true);
+    setSaving(true);
     setError("");
 
     try {
-      // Add course to Firestore (no file upload needed)
-      console.log("Adding course to Firestore...");
-      await addDoc(collection(db, "courses"), {
+      const courseRef = doc(db, "courses", id);
+      await updateDoc(courseRef, {
         ...courseData,
-        facultyId: userId,
-        enrolledStudents: 0,
-        rating: 0,
-        reviews: [],
-        status: "active",
-        createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       });
 
       setSuccess(true);
       setError("");
 
-      // Reset form
-      setCourseData({
-        title: "",
-        description: "",
-        category: "",
-        level: "Beginner",
-        duration: "",
-        language: "English",
-        price: "Free",
-        thumbnailURL: "",
-        youtubePlaylist: "",
-        videos: [],
-      });
-      setThumbnailFile(null);
-      setThumbnailPreview(null);
-
-      // Hide success message after 3 seconds
-      setTimeout(() => setSuccess(false), 3000);
+      setTimeout(() => {
+        navigate("/faculty/my-courses");
+      }, 1500);
     } catch (err) {
-      console.error("Error adding course:", err);
-      console.error("Error code:", err.code);
-      console.error("Error message:", err.message);
-
-      // Show specific error message
-      if (err.code === "permission-denied") {
-        setError("Permission denied. Please check Firestore rules.");
-      } else {
-        setError(`Failed to add course: ${err.message}`);
-      }
+      console.error("Error updating course:", err);
+      setError(`Failed to update course: ${err.message}`);
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <FaSpinner className="animate-spin text-5xl text-emerald-600 mx-auto mb-4" />
+          <p className="text-gray-600 text-lg">Loading course data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
+        <button
+          onClick={() => navigate("/faculty/my-courses")}
+          className="flex items-center gap-2 text-emerald-600 hover:text-emerald-700 mb-4 font-semibold"
+        >
+          <FaArrowLeft />
+          Back to My Courses
+        </button>
         <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
           <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-3 rounded-lg">
             <FaBook className="text-white text-2xl" />
           </div>
-          Add New Course
+          Edit Course
         </h1>
         <p className="text-gray-600 mt-2">
-          Create a new course with YouTube videos and manage your content
+          Update your course information and content
         </p>
       </div>
 
@@ -187,10 +201,8 @@ const FacultyAddCourse = () => {
         <div className="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg flex items-center gap-3">
           <FaCheckCircle className="text-2xl" />
           <div>
-            <p className="font-semibold">Course added successfully!</p>
-            <p className="text-sm">
-              Your course is now available for students.
-            </p>
+            <p className="font-semibold">Course updated successfully!</p>
+            <p className="text-sm">Redirecting to My Courses...</p>
           </div>
         </div>
       )}
@@ -483,25 +495,25 @@ const FacultyAddCourse = () => {
         <div className="flex items-center justify-end gap-4">
           <button
             type="button"
-            onClick={() => window.history.back()}
+            onClick={() => navigate("/faculty/my-courses")}
             className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
-            disabled={loading}
+            disabled={saving}
             className="px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
-            {loading ? (
+            {saving ? (
               <>
                 <FaSpinner className="animate-spin" />
-                Adding Course...
+                Updating Course...
               </>
             ) : (
               <>
                 <FaSave />
-                Add Course
+                Update Course
               </>
             )}
           </button>
@@ -511,4 +523,4 @@ const FacultyAddCourse = () => {
   );
 };
 
-export default FacultyAddCourse;
+export default FacultyEditCourse;

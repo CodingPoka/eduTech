@@ -15,6 +15,9 @@ import FacultyNavbar from "./components/faculty/FacutlyNavbar";
 import FacultyDashboard from "./components/faculty/FacultyDashboard";
 import FacultyProfile from "./components/faculty/FacutlyProfile";
 import FacultyAddCourse from "./components/faculty/FacultyAddCourse";
+import FacultyMyCourses from "./components/faculty/FacultyMyCourses";
+import FacultyEditCourse from "./components/faculty/FacultyEditCourse";
+import CourseDetail from "./components/CourseDetail";
 import AdminLogin from "./components/admin/AdminLogin";
 import AdminProfile from "./components/admin/AdminProfile";
 import AdminDashboard from "./components/admin/AdminDashboard";
@@ -33,6 +36,16 @@ const router = createBrowserRouter([
         <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
           <Home />
         </div>
+        <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/course/:id",
+    element: (
+      <div>
+        <Navbar />
+        <CourseDetail />
         <Footer />
       </div>
     ),
@@ -187,7 +200,35 @@ const router = createBrowserRouter([
         <div className="flex flex-1 flex-col">
           <div className="flex-1 lg:ml-64 pt-16 pb-16">
             <div className="p-6">
-              <FacultyAddCourse />
+              <FacultyMyCourses />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/faculty/course/:id",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <FacultyNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <CourseDetail />
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/faculty/course/:id/edit",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <FacultyNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <FacultyEditCourse />
             </div>
           </div>
         </div>
