@@ -7,6 +7,22 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Testimonial from "./components/Testimonial";
 import Courses from "./components/Courses";
+import StudentLogin from "./components/student/StudentLogin";
+import StudentRegister from "./components/student/StudentRegister";
+import FacultyLogin from "./components/faculty/FacultyLogin";
+import FacultyRegister from "./components/faculty/FacultyRegister";
+import FacultyNavbar from "./components/faculty/FacutlyNavbar";
+import FacultyDashboard from "./components/faculty/FacultyDashboard";
+import FacultyProfile from "./components/faculty/FacutlyProfile";
+import FacultyAddCourse from "./components/faculty/FacultyAddCourse";
+import AdminLogin from "./components/admin/AdminLogin";
+import AdminProfile from "./components/admin/AdminProfile";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import AdminNavbar from "./components/admin/AdminNavbar";
+import AdminFooter from "./components/admin/AdminFooter";
+import ManageStudent from "./components/admin/ManageStudent";
+import ManageFaculty from "./components/admin/ManageFaculty";
+import ManageCourse from "./components/admin/ManageCourse";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +30,9 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Navbar />
-        <Home />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <Home />
+        </div>
         <Footer />
       </div>
     ),
@@ -24,7 +42,9 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Navbar />
-        <Courses />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <Courses />
+        </div>
         <Footer />
       </div>
     ),
@@ -34,7 +54,9 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Navbar />
-        <About />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <About />
+        </div>
         <Footer />
       </div>
     ),
@@ -44,7 +66,9 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Navbar />
-        <Contact />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <Contact />
+        </div>
         <Footer />
       </div>
     ),
@@ -54,8 +78,206 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Navbar />
-        <Testimonial />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <Testimonial />
+        </div>
         <Footer />
+      </div>
+    ),
+  },
+
+  {
+    path: "/student/login",
+    element: (
+      <div>
+        <Navbar />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <StudentLogin />
+        </div>
+        <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/student/register",
+    element: (
+      <div>
+        <Navbar />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <StudentRegister />
+        </div>
+        <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/faculty/login",
+    element: (
+      <div>
+        <Navbar />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <FacultyLogin />
+        </div>
+        <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/faculty/register",
+    element: (
+      <div>
+        <Navbar />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <FacultyRegister />
+        </div>
+        <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/faculty/dashboard",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <FacultyNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <FacultyDashboard />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/faculty/profile",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <FacultyNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <FacultyProfile />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/faculty/add-course",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <FacultyNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <FacultyAddCourse />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/faculty/my-courses",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <FacultyNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <FacultyAddCourse />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/login",
+    element: (
+      <div>
+        <Navbar />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <AdminLogin />
+        </div>
+        <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/admin/profile",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <AdminNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <AdminProfile />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/dashboard",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <AdminNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <AdminDashboard />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/manage-students",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <AdminNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <ManageStudent />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/manage-faculty",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <AdminNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <ManageFaculty />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/manage-courses",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <AdminNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <ManageCourse />
+            </div>
+          </div>
+        </div>
       </div>
     ),
   },

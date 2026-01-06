@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full fixed top-0 left-0 right-0 z-50">
       {/* Top Bar */}
       <div className="bg-[#0E0A38] text-white py-3 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
@@ -93,8 +93,8 @@ const Navbar = () => {
       </div>
 
       {/* Main Navbar */}
-      <nav className="bg-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-1.5">
+      <nav className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 py-2 sm:py-3 lg:py-1.5">
           <div className="flex justify-between items-center">
             {/* Logo & Brand Name */}
             <Link to="/" className="flex items-center gap-3">
@@ -185,7 +185,7 @@ const Navbar = () => {
               </button>
 
               <Link
-                to="/login"
+                to="/student/login"
                 className="hidden sm:block bg-[#FF630E] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#E5590D] transition-colors duration-200 shadow-md"
               >
                 Login
@@ -272,7 +272,7 @@ const Navbar = () => {
                   Testimonial
                 </NavLink>
                 <Link
-                  to="/login"
+                  to="/student/login"
                   className="bg-[#FF630E] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#E5590D] transition-colors duration-200 text-center mt-2"
                   onClick={toggleMenu}
                 >
