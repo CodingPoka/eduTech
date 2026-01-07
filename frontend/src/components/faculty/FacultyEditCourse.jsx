@@ -108,7 +108,10 @@ const FacultyEditCourse = () => {
     if (videoInput.title && videoInput.url) {
       setCourseData({
         ...courseData,
-        videos: [...courseData.videos, { ...videoInput, id: Date.now() }],
+        videos: [
+          ...courseData.videos,
+          { ...videoInput, id: Date.now(), status: "pending" },
+        ],
       });
       setVideoInput({ title: "", url: "", duration: "" });
     }
