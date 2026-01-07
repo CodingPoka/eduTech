@@ -520,6 +520,61 @@ const PendingApprovals = () => {
         </>
       ) : (
         <div>
+          {/* Video Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl shadow-md p-6 border-2 border-yellow-200">
+              <div className="flex items-center justify-between mb-2">
+                <FaClock className="text-3xl text-yellow-600" />
+                <span className="text-3xl font-bold text-yellow-900">
+                  {allCourses.reduce(
+                    (count, course) =>
+                      count +
+                      (course.videos?.filter(
+                        (v) =>
+                          v.status === "pending" ||
+                          v.status === "active" ||
+                          !v.status
+                      ).length || 0),
+                    0
+                  )}
+                </span>
+              </div>
+              <p className="text-yellow-700 font-semibold">Pending Videos</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-md p-6 border-2 border-green-200">
+              <div className="flex items-center justify-between mb-2">
+                <FaCheckCircle className="text-3xl text-green-600" />
+                <span className="text-3xl font-bold text-green-900">
+                  {allCourses.reduce(
+                    (count, course) =>
+                      count +
+                      (course.videos?.filter((v) => v.status === "approved")
+                        .length || 0),
+                    0
+                  )}
+                </span>
+              </div>
+              <p className="text-green-700 font-semibold">Approved Videos</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl shadow-md p-6 border-2 border-red-200">
+              <div className="flex items-center justify-between mb-2">
+                <FaTimesCircle className="text-3xl text-red-600" />
+                <span className="text-3xl font-bold text-red-900">
+                  {allCourses.reduce(
+                    (count, course) =>
+                      count +
+                      (course.videos?.filter((v) => v.status === "rejected")
+                        .length || 0),
+                    0
+                  )}
+                </span>
+              </div>
+              <p className="text-red-700 font-semibold">Rejected Videos</p>
+            </div>
+          </div>
+
           {/* Video Approvals Section */}
           <div className="bg-white rounded-xl shadow-md p-6 mb-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
