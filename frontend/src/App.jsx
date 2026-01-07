@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import Testimonial from "./components/Testimonial";
 import Courses from "./components/Courses";
 import PopularCategories from "./components/PopularCategories";
+import Hcourses from "./components/Hcourses";
 import StudentLogin from "./components/student/StudentLogin";
 import StudentRegister from "./components/student/StudentRegister";
 import FacultyLogin from "./components/faculty/FacultyLogin";
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
           <Home />
         </div>
         <PopularCategories />
+        <Hcourses />
         <Footer />
       </div>
     ),

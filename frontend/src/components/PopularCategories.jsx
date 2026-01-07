@@ -119,7 +119,7 @@ const PopularCategories = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-6">
+    <div className="bg-white py-12 pb-8 px-6">
       <div className="container mx-auto">
         {/* Heading Section */}
         <div className="text-center mb-16">
@@ -179,7 +179,7 @@ const PopularCategories = () => {
             <div className="text-center">
               <button
                 onClick={handleCategoryClick}
-                className="px-12 py-4 rounded-xl font-bold text-white text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="px-16 py-5 rounded-xl font-bold text-white text-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 style={{ backgroundColor: "#FF630E" }}
               >
                 All Categories
