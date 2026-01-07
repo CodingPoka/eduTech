@@ -7,6 +7,7 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Testimonial from "./components/Testimonial";
 import Courses from "./components/Courses";
+import PopularCategories from "./components/PopularCategories";
 import StudentLogin from "./components/student/StudentLogin";
 import StudentRegister from "./components/student/StudentRegister";
 import FacultyLogin from "./components/faculty/FacultyLogin";
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
         <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
           <Home />
         </div>
+        <PopularCategories />
         <Footer />
       </div>
     ),

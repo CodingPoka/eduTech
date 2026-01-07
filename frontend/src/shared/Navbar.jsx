@@ -40,7 +40,7 @@ const Navbar = () => {
             {/* Email */}
             <div className="flex items-center gap-2">
               <MdEmail className="text-lg font-bold" />
-              <span className="hidden sm:inline">kingshuk@gmail.com</span>
+              <span className="hidden sm:inline">eduTeach@gmail.com</span>
             </div>
 
             {/* Phone */}
