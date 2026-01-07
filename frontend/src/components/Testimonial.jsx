@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FaStar, FaQuoteLeft } from "react-icons/fa";
 
 const Testimonial = () => {
+  const navigate = useNavigate();
+
   const testimonials = [
     {
       id: 1,
@@ -209,7 +212,10 @@ const Testimonial = () => {
             Join thousands of students who have transformed their careers with
             EduTech
           </p>
-          <button className="bg-white text-indigo-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl">
+          <button
+            onClick={() => navigate("/courses")}
+            className="bg-white text-indigo-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl"
+          >
             Explore Courses
           </button>
         </div>
