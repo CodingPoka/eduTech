@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import {
   FaBook,
   FaSpinner,
@@ -12,6 +13,7 @@ import {
 } from "react-icons/fa";
 
 const Courses = () => {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -382,6 +384,7 @@ const Courses = () => {
 
                       {/* View Details Button */}
                       <button
+                        onClick={() => navigate(`/course/${course.id}`)}
                         className="w-full mt-4 py-3 rounded-xl font-semibold text-white transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
                         style={{ backgroundColor: "#E5590D" }}
                       >

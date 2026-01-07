@@ -86,7 +86,7 @@ const Hcourses = () => {
                 <div
                   key={course.id}
                   className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group cursor-pointer"
-                  onClick={() => navigate("/courses")}
+                  onClick={() => navigate(`/course/${course.id}`)}
                 >
                   {/* Thumbnail with Level Badge */}
                   <div className="relative overflow-hidden">

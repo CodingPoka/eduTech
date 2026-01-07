@@ -20,6 +20,7 @@ import FacultyAddCourse from "./components/faculty/FacultyAddCourse";
 import FacultyMyCourses from "./components/faculty/FacultyMyCourses";
 import FacultyEditCourse from "./components/faculty/FacultyEditCourse";
 import CourseDetail from "./components/CourseDetail";
+import ScourseDetails from "./components/ScourseDetails";
 import AdminLogin from "./components/admin/AdminLogin";
 import AdminProfile from "./components/admin/AdminProfile";
 import AdminDashboard from "./components/admin/AdminDashboard";
@@ -50,7 +51,9 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Navbar />
-        <CourseDetail />
+        <div className="pt-[160px] sm:pt-[150px] lg:pt-[140px]">
+          <ScourseDetails />
+        </div>
         <Footer />
       </div>
     ),
