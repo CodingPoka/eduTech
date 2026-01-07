@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { FaBook, FaSpinner } from "react-icons/fa";
+import {
+  FaBook,
+  FaSpinner,
+  FaClock,
+  FaUserGraduate,
+  FaStar,
+} from "react-icons/fa";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -88,30 +94,113 @@ const Courses = () => {
       {/* Courses Section */}
       <div className="container mx-auto p-6 py-16">
         {courses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {courses.map((course) => (
               <div
                 key={course.id}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-6"
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group"
               >
-                {course.thumbnailURL && (
-                  <img
-                    src={course.thumbnailURL}
-                    alt={course.title}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                )}
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  {course.title}
-                </h3>
-                <p className="text-gray-600 text-sm line-clamp-3 mb-4">
-                  {course.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-indigo-600 font-semibold">
-                    {course.category}
-                  </span>
-                  <span className="text-gray-500 text-sm">{course.level}</span>
+                {/* Thumbnail with Level Badge */}
+                <div className="relative overflow-hidden">
+                  {course.thumbnailURL ? (
+                    <img
+                      src={course.thumbnailURL}
+                      alt={course.title}
+                      className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-56 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                      <FaBook className="text-6xl text-white opacity-50" />
+                    </div>
+                  )}
+
+                  {/* Level Badge */}
+                  <div className="absolute top-4 left-4">
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm font-bold text-white shadow-lg backdrop-blur-sm ${
+                        course.level === "Beginner"
+                          ? "bg-green-500/90"
+                          : course.level === "Intermediate"
+                          ? "bg-yellow-500/90"
+                          : "bg-red-500/90"
+                      }`}
+                    >
+                      {course.level || "Beginner"}
+                    </span>
+                  </div>
+
+                  {/* Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                {/* Course Content */}
+                <div className="p-6">
+                  {/* Price */}
+                  <div className="mb-3">
+                    <span className="text-3xl font-bold text-indigo-600">
+                      ${course.price || "49.99"}
+                    </span>
+                    {course.originalPrice && (
+                      <span className="text-lg text-gray-400 line-through ml-2">
+                        ${course.originalPrice}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Course Title */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]">
+                    {course.title}
+                  </h3>
+
+                  {/* Rating and Reviews */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar
+                          key={i}
+                          className={`text-sm ${
+                            i < Math.floor(course.rating || 4.5)
+                              ? "text-yellow-400"
+                              : "text-gray-300"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-sm text-gray-600 font-medium">
+                      {course.rating || "4.5"}
+                    </span>
+                    <span className="text-sm text-gray-400">
+                      ({course.totalReviews || course.enrolledStudents || "120"}{" "}
+                      reviews)
+                    </span>
+                  </div>
+
+                  {/* Duration and Enrolled Students */}
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                    {/* Duration */}
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <FaClock className="text-indigo-600" />
+                      <span className="text-sm font-medium">
+                        {course.duration || "10"} weeks
+                      </span>
+                    </div>
+
+                    {/* Enrolled Students */}
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <FaUserGraduate className="text-indigo-600" />
+                      <span className="text-sm font-medium">
+                        {course.enrolledStudents || "0"} enrolled
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* View Details Button */}
+                  <button
+                    className="w-full mt-4 py-3 rounded-xl font-semibold text-white transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                    style={{ backgroundColor: "#E5590D" }}
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
             ))}
