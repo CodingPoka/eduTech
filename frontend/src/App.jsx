@@ -26,6 +26,7 @@ import AdminFooter from "./components/admin/AdminFooter";
 import ManageStudent from "./components/admin/ManageStudent";
 import ManageFaculty from "./components/admin/ManageFaculty";
 import ManageCourse from "./components/admin/ManageCourse";
+import PendingApprovals from "./components/admin/PendingApprovals";
 
 const router = createBrowserRouter([
   {
@@ -301,6 +302,21 @@ const router = createBrowserRouter([
           <div className="flex-1 lg:ml-64 pt-16 pb-16">
             <div className="p-6">
               <ManageFaculty />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/admin/pending-approvals",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <AdminNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-16 pb-16">
+            <div className="p-6">
+              <PendingApprovals />
             </div>
           </div>
         </div>

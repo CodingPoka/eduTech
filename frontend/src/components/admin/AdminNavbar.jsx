@@ -49,6 +49,11 @@ const AdminNavbar = () => {
       icon: <FaUserCircle />,
     },
     {
+      name: "Pending Approvals",
+      path: "/admin/pending-approvals",
+      icon: <FaBell />,
+    },
+    {
       name: "Manage Students",
       path: "/admin/manage-students",
       icon: <FaUsers />,

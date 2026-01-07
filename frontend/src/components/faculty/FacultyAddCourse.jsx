@@ -125,7 +125,7 @@ const FacultyAddCourse = () => {
         enrolledStudents: 0,
         rating: 0,
         reviews: [],
-        status: "active",
+        status: "pending",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       });
@@ -187,9 +187,10 @@ const FacultyAddCourse = () => {
         <div className="mb-6 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg flex items-center gap-3">
           <FaCheckCircle className="text-2xl" />
           <div>
-            <p className="font-semibold">Course added successfully!</p>
+            <p className="font-semibold">Course submitted successfully!</p>
             <p className="text-sm">
-              Your course is now available for students.
+              Your course is pending admin approval. It will be visible to
+              students once approved.
             </p>
           </div>
         </div>
