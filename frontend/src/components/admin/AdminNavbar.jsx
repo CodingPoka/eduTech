@@ -44,6 +44,11 @@ const AdminNavbar = () => {
       icon: <MdDashboard />,
     },
     {
+      name: "My Profile",
+      path: "/admin/profile",
+      icon: <FaUserCircle />,
+    },
+    {
       name: "Manage Students",
       path: "/admin/manage-students",
       icon: <FaUsers />,
@@ -63,27 +68,27 @@ const AdminNavbar = () => {
   return (
     <>
       {/* Top Navbar */}
-      <nav className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 h-16 shadow-sm">
-        <div className="h-full px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <nav className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50 h-20 shadow-sm">
+        <div className="h-full px-6 sm:px-8 lg:px-10 flex justify-between items-center">
           {/* Left: Menu Button + Logo */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <button
               onClick={toggleSidebar}
-              className="text-gray-600 hover:text-indigo-600 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="text-gray-600 hover:text-indigo-600 p-2.5 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <FaBars className="text-xl" />
+              <FaBars className="text-2xl" />
             </button>
-            <Link to="/admin/dashboard" className="flex items-center gap-3">
+            <Link to="/admin/dashboard" className="flex items-center gap-4">
               <img
                 src="/logo/eduLogo.png"
                 alt="EduTech Logo"
-                className="h-9 w-9 object-contain"
+                className="h-12 w-12 object-contain"
               />
               <div className="hidden sm:flex flex-col">
-                <span className="text-gray-900 text-base font-bold leading-tight">
+                <span className="text-gray-900 text-lg font-bold leading-tight">
                   EduTech Admin
                 </span>
-                <span className="text-indigo-600 text-xs font-medium">
+                <span className="text-indigo-600 text-sm font-medium">
                   Management Portal
                 </span>
               </div>
@@ -91,56 +96,56 @@ const AdminNavbar = () => {
           </div>
 
           {/* Center: Search Bar */}
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
+          <div className="hidden md:flex flex-1 max-w-lg mx-10">
             <div className="relative w-full">
               <input
                 type="text"
                 placeholder="Search students, faculty, courses..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                className="w-full pl-12 pr-5 py-3 bg-gray-100 border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
               />
-              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
+              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-base" />
             </div>
           </div>
 
           {/* Right: Actions + Profile */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {/* Quick Actions */}
-            <button className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
-              <FaBook />
+            <button className="hidden sm:flex items-center gap-2 px-4 py-2.5 text-base font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+              <FaBook className="text-lg" />
               <span className="hidden lg:inline">Add Course</span>
             </button>
 
             {/* Messages */}
-            <button className="relative text-gray-600 hover:text-indigo-600 p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <FaEnvelope className="text-lg" />
-              <span className="absolute top-1 right-1 bg-green-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-semibold">
+            <button className="relative text-gray-600 hover:text-indigo-600 p-2.5 hover:bg-gray-100 rounded-lg transition-colors">
+              <FaEnvelope className="text-xl" />
+              <span className="absolute top-1 right-1 bg-green-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
                 5
               </span>
             </button>
 
             {/* Notifications */}
-            <button className="relative text-gray-600 hover:text-indigo-600 p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <FaBell className="text-lg" />
-              <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-semibold">
+            <button className="relative text-gray-600 hover:text-indigo-600 p-2.5 hover:bg-gray-100 rounded-lg transition-colors">
+              <FaBell className="text-xl" />
+              <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
                 3
               </span>
             </button>
 
             {/* Settings */}
-            <button className="hidden lg:block text-gray-600 hover:text-indigo-600 p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <FaCog className="text-lg" />
+            <button className="hidden lg:block text-gray-600 hover:text-indigo-600 p-2.5 hover:bg-gray-100 rounded-lg transition-colors">
+              <FaCog className="text-xl" />
             </button>
 
             {/* Profile Dropdown */}
-            <div className="relative ml-2">
+            <div className="relative ml-3">
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center gap-2 hover:bg-gray-100 rounded-lg px-3 py-2 transition-colors border border-gray-200"
+                className="flex items-center gap-3 hover:bg-gray-100 rounded-lg px-4 py-2.5 transition-colors border border-gray-200"
               >
-                <div className="h-8 w-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <FaUserCircle className="text-white text-lg" />
+                <div className="h-10 w-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <FaUserCircle className="text-white text-xl" />
                 </div>
-                <span className="hidden md:block text-sm font-semibold text-gray-700">
+                <span className="hidden md:block text-base font-semibold text-gray-700">
                   Admin
                 </span>
               </button>
@@ -185,7 +190,7 @@ const AdminNavbar = () => {
       </nav>
 
       {/* Left Sidebar - Desktop */}
-      <aside className="hidden lg:block fixed left-0 top-16 bottom-0 w-64 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 shadow-xl z-40 overflow-y-auto">
+      <aside className="hidden lg:block fixed left-0 top-20 bottom-0 w-64 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 shadow-xl z-40 overflow-y-auto">
         <div className="p-4 flex flex-col h-full">
           {/* Navigation */}
           <div className="space-y-1 flex-1">
