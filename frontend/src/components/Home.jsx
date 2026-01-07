@@ -46,7 +46,7 @@ const Home = () => {
   return (
     <div className="relative w-full">
       {/* Hero Slider */}
-      <div className="relative h-[450px] md:h-[580px] lg:h-[680px] overflow-hidden">
+      <div className="relative h-[450px] md:h-[600px] lg:h-[680px] overflow-hidden">
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -75,11 +75,17 @@ const Home = () => {
                   {slide.subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-delay-2 justify-center">
-                  <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 md:px-8 py-3 md:py-4 rounded-lg shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                  <button
+                    className="text-white font-semibold px-6 md:px-8 py-3 md:py-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                    style={{ backgroundColor: "#E5590D" }}
+                  >
                     <FaPlay className="text-sm" />
                     <span>Start Learning</span>
                   </button>
-                  <button className="bg-white/10 backdrop-blur-md hover:bg-white/20 text-white font-semibold px-6 md:px-8 py-3 md:py-4 rounded-lg border-2 border-white/30 hover:border-white/50 transition-all duration-300 transform hover:scale-105">
+                  <button
+                    className="bg-white/10 backdrop-blur-md hover:bg-white/20 font-semibold px-6 md:px-8 py-3 md:py-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+                    style={{ color: "#E5590D" }}
+                  >
                     Browse Courses
                   </button>
                 </div>
@@ -91,14 +97,16 @@ const Home = () => {
         {/* Navigation Arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 z-10"
+          className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 backdrop-blur-md text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 z-10"
+          style={{ backgroundColor: "#E5590D" }}
           aria-label="Previous slide"
         >
           <FaChevronLeft className="text-lg sm:text-xl" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 z-10"
+          className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 backdrop-blur-md text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 z-10"
+          style={{ backgroundColor: "#E5590D" }}
           aria-label="Next slide"
         >
           <FaChevronRight className="text-lg sm:text-xl" />
@@ -112,9 +120,12 @@ const Home = () => {
               onClick={() => goToSlide(index)}
               className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                 index === currentSlide
-                  ? "bg-purple-600 w-8 sm:w-12"
+                  ? "w-8 sm:w-12"
                   : "bg-white/50 w-1.5 sm:w-2 hover:bg-white/80"
               }`}
+              style={
+                index === currentSlide ? { backgroundColor: "#E5590D" } : {}
+              }
               aria-label={`Go to slide ${index + 1}`}
             ></button>
           ))}
