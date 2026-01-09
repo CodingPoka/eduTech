@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 const Instructor = () => {
   const [instructors, setInstructors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedInstructor, setSelectedInstructor] = useState(null);
 
   // Fetch instructors from database
   useEffect(() => {
@@ -103,7 +104,8 @@ const Instructor = () => {
               {instructors.map((instructor) => (
                 <div
                   key={instructor.id}
-                  className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                  className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer"
+                  onClick={() => setSelectedInstructor(instructor)}
                 >
                   {/* Image */}
                   <div className="relative overflow-hidden h-64">
@@ -112,15 +114,12 @@ const Instructor = () => {
                       alt={instructor.name}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                     />
-
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
                     {/* Specialty Badge */}
                     <div className="absolute top-4 left-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                       {instructor.specialty}
                     </div>
                   </div>
-
                   {/* Content */}
                   <div className="p-6">
                     <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors text-center">
@@ -136,6 +135,71 @@ const Instructor = () => {
                 </div>
               ))}
             </div>
+
+            {/* Modal for instructor details - rendered once, outside the grid */}
+            {selectedInstructor && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-fadeIn">
+                  <button
+                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold"
+                    onClick={() => setSelectedInstructor(null)}
+                    aria-label="Close"
+                  >
+                    &times;
+                  </button>
+                  <div className="flex flex-col items-center">
+                    <img
+                      src={selectedInstructor.image}
+                      alt={selectedInstructor.name}
+                      className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-indigo-200"
+                    />
+                    <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">
+                      {selectedInstructor.name}
+                    </h2>
+                    <p className="text-indigo-600 font-semibold mb-2 text-center">
+                      {selectedInstructor.title}
+                    </p>
+                    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow mb-4">
+                      {selectedInstructor.specialty}
+                    </div>
+                    <p className="text-gray-700 text-base mb-4 text-center">
+                      {selectedInstructor.bio}
+                    </p>
+                    {/* Show more details if available */}
+                    {selectedInstructor.email && (
+                      <p className="text-gray-500 text-sm mb-1">
+                        <span className="font-semibold">Email:</span>{" "}
+                        {selectedInstructor.email}
+                      </p>
+                    )}
+                    {selectedInstructor.phone && (
+                      <p className="text-gray-500 text-sm mb-1">
+                        <span className="font-semibold">Phone:</span>{" "}
+                        {selectedInstructor.phone}
+                      </p>
+                    )}
+                    {selectedInstructor.expertise &&
+                      selectedInstructor.expertise.length > 0 && (
+                        <div className="mt-4 w-full">
+                          <h4 className="font-semibold text-gray-800 mb-2 text-center">
+                            Expertise
+                          </h4>
+                          <div className="flex flex-wrap gap-2 justify-center">
+                            {selectedInstructor.expertise.map((skill, idx) => (
+                              <span
+                                key={idx}
+                                className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* No Results */}
             {instructors.length === 0 && (
