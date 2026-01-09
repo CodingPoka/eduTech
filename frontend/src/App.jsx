@@ -30,6 +30,7 @@ import ManageStudent from "./components/admin/ManageStudent";
 import ManageFaculty from "./components/admin/ManageFaculty";
 import ManageCourse from "./components/admin/ManageCourse";
 import PendingApprovals from "./components/admin/PendingApprovals";
+import LiveCount from "./components/LiveCount";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
         </div>
         <PopularCategories />
         <Hcourses />
+        <LiveCount />
         <Footer />
       </div>
     ),
