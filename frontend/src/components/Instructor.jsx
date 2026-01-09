@@ -132,23 +132,6 @@ const Instructor = () => {
                     <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                       {instructor.bio}
                     </p>
-
-                    {/* Expertise Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {instructor.expertise.slice(0, 3).map((skill, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                      {instructor.expertise.length > 3 && (
-                        <span className="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full font-semibold">
-                          +{instructor.expertise.length - 3}
-                        </span>
-                      )}
-                    </div>
                   </div>
                 </div>
               ))}
