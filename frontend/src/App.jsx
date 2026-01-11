@@ -11,6 +11,13 @@ import PopularCategories from "./components/PopularCategories";
 import Hcourses from "./components/Hcourses";
 import StudentLogin from "./components/student/StudentLogin";
 import StudentRegister from "./components/student/StudentRegister";
+import StudentDashboard from "./components/student/StudentDashboard";
+import StudentProfile from "./components/student/StudentProfile";
+import StudentNavbar from "./components/student/StudentNavbar";
+import MyCourses from "./components/student/MyCourses";
+import MyProgress from "./components/student/MyProgress";
+import MyCertificate from "./components/student/MyCertificate";
+import Test from "./components/student/Test";
 import FacultyLogin from "./components/faculty/FacultyLogin";
 import FacultyRegister from "./components/faculty/FacultyRegister";
 import FacultyNavbar from "./components/faculty/FacutlyNavbar";
@@ -132,6 +139,111 @@ const router = createBrowserRouter([
           <StudentRegister />
         </div>
         <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/student/dashboard",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <StudentNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-20">
+            <div className="p-6">
+              <StudentDashboard />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/student/profile",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <StudentNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-20">
+            <div className="p-6">
+              <StudentProfile />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/student/my-courses",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <StudentNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-20">
+            <div className="p-6">
+              <MyCourses />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/student/progress",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <StudentNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-20">
+            <div className="p-6">
+              <MyProgress />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/student/certificates",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <StudentNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-20">
+            <div className="p-6">
+              <MyCertificate />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/student/test",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <StudentNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-20">
+            <div className="p-6">
+              <Test />
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    path: "/student/courses",
+    element: (
+      <div className="min-h-screen flex flex-col">
+        <StudentNavbar />
+        <div className="flex flex-1 flex-col">
+          <div className="flex-1 lg:ml-64 pt-20">
+            <div className="p-6">
+              <Courses />
+            </div>
+          </div>
+        </div>
       </div>
     ),
   },

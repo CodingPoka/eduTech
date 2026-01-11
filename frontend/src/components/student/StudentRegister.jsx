@@ -16,6 +16,7 @@ import {
   FaEnvelope,
   FaLock,
   FaPhone,
+  FaCamera,
 } from "react-icons/fa";
 
 const StudentRegister = () => {
@@ -34,6 +35,8 @@ const StudentRegister = () => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -41,6 +44,42 @@ const StudentRegister = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handlePhotoChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setPhotoFile(e.target.files[0]);
+      setPhotoPreview(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  const uploadPhotoToCloudinary = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "edutech_uploads");
+      formData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+        }/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Photo upload failed");
+      }
+
+      const data = await response.json();
+      return data.secure_url;
+    } catch (error) {
+      console.error("Cloudinary upload error:", error);
+      return null;
+    }
   };
 
   const handleRegister = async (e) => {
@@ -81,6 +120,12 @@ const StudentRegister = () => {
         displayName: fullName,
       });
 
+      // Upload photo if provided
+      let photoURL = "";
+      if (photoFile) {
+        photoURL = await uploadPhotoToCloudinary(photoFile);
+      }
+
       // Store user data in Firestore
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
@@ -92,6 +137,7 @@ const StudentRegister = () => {
         gender: formData.gender || "",
         institution: formData.institution || "",
         role: "student",
+        photoURL: photoURL || "",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
         isActive: true,
@@ -311,6 +357,42 @@ const StudentRegister = () => {
                   <option value="other">Other</option>
                   <option value="prefer-not-to-say">Prefer not to say</option>
                 </select>
+              </div>
+            </div>
+
+            {/* Profile Photo Upload */}
+            <div>
+              <label
+                htmlFor="photo"
+                className="block text-sm font-semibold text-gray-700 mb-2"
+              >
+                Profile Photo (Optional)
+              </label>
+              <div className="flex flex-col items-center">
+                {photoPreview && (
+                  <div className="mb-4 w-32 h-32 rounded-lg overflow-hidden border-2 border-purple-400 shadow-lg">
+                    <img
+                      src={photoPreview}
+                      alt="Photo preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <label className="w-full flex items-center justify-center px-4 py-3 border-2 border-dashed border-purple-400 rounded-xl cursor-pointer hover:border-purple-600 hover:bg-purple-50 transition-all duration-200">
+                  <div className="flex items-center gap-2">
+                    <FaCamera className="text-purple-400 text-xl" />
+                    <span className="text-sm font-semibold text-purple-600">
+                      {photoPreview ? "Change Photo" : "Upload Photo"}
+                    </span>
+                  </div>
+                  <input
+                    id="photo"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handlePhotoChange}
+                  />
+                </label>
               </div>
             </div>
 
